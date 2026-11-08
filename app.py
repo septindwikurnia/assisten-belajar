@@ -2,12 +2,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from datetime import datetime, time
 import base64
-
 import os
+import io
+import streamlit as st
+import pandas as pd
 
+from datetime import datetime, time
 from openpyxl import load_workbook
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload, MediaIoBaseUpload
 
 # KONFIGURASI APLIKASI
 st.set_page_config(
@@ -17,7 +22,10 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-DB_PATH = "/content/drive/MyDrive/Assisten_Belajar/database/Database_Assisten_Belajar_Pulih_2.xlsx"
+# KONFIGURASI DATABASE GOOGLE DRIVE
+FILE_ID = "1ho1H35Wj6yezHW4BdG4H_mu24sXrtteU"
+
+SCOPES = ["https://www.googleapis.com/auth/drive"]
 
 # AKSES ADMIN
 ADMIN_USERNAME = st.secrets["ADMIN_USERNAME"]
