@@ -5,8 +5,6 @@ import plotly.express as px
 import base64
 import os
 import io
-import streamlit as st
-import pandas as pd
 
 from datetime import datetime, time
 from openpyxl import load_workbook
