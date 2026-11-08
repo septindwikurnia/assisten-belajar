@@ -714,7 +714,7 @@ elif st.session_state.tutor_login:
 
     # LOGO KIRI
     with kiri:
-        with open("/content/drive/MyDrive/Assisten_Belajar/logo.png", "rb") as f:
+        with open("logo.png", "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()
 
         st.markdown(
@@ -753,7 +753,7 @@ else:
             st.session_state.menu_terbuka = not st.session_state.menu_terbuka
 
     with tengah:
-        with open("/content/drive/MyDrive/Assisten_Belajar/logo.png", "rb") as f:
+        with open("logo.png", "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()
 
         st.markdown(
