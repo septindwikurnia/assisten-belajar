@@ -1835,6 +1835,7 @@ elif menu == "Pendaftaran":
 
                     wb.save(DB_PATH)
                     wb.close()
+                    upload_database()
 
                     st.cache_data.clear()
 
@@ -2018,6 +2019,7 @@ elif menu == "Daftar Murid":
 
         wb.save(DB_PATH)
         wb.close()
+        upload_database()
 
         st.cache_data.clear()
 
@@ -2620,6 +2622,7 @@ elif menu == "Daftar Murid":
                     wb.save(DB_PATH)
                     wb.close()
                     wb = None
+                    upload_database()
 
                     st.cache_data.clear()
 
@@ -2895,6 +2898,7 @@ elif menu == "Data Tutor":
 
         wb.save(DB_PATH)
         wb.close()
+        upload_database()
         st.cache_data.clear()
 
     tab1, tab2, tab3 = st.tabs([
@@ -3267,6 +3271,7 @@ elif menu == "Data Tutor":
 
                     wb.save(DB_PATH)
                     wb.close()
+                    upload_database()
                     st.cache_data.clear()
 
                     st.success("Data tutor berhasil dihapus.")
@@ -3684,6 +3689,7 @@ elif menu == "Absensi Tutor":
 
                     wb.save(DB_PATH)
                     wb.close()
+                    upload_database()
 
                     st.cache_data.clear()
 
@@ -4322,6 +4328,7 @@ elif menu == "Absensi Murid":
 
                         wb.save(DB_PATH)
                         wb.close()
+                        upload_database()
 
                         st.cache_data.clear()
 
@@ -5025,6 +5032,7 @@ elif menu == "Verifikasi Pendaftaran":
                 wb.save(DB_PATH)
                 wb.close()
                 wb = None
+                upload_database()
 
                 st.cache_data.clear()
 
@@ -5334,6 +5342,7 @@ elif menu == "Paket Belajar":
 
                             wb.save(DB_PATH)
                             wb.close()
+                            upload_database()
 
                             st.cache_data.clear()
 
@@ -5580,6 +5589,7 @@ elif menu == "Paket Belajar":
 
                             wb.save(DB_PATH)
                             wb.close()
+                            upload_database()
 
                             st.cache_data.clear()
 
@@ -5647,6 +5657,7 @@ elif menu == "Paket Belajar":
 
                     wb.save(DB_PATH)
                     wb.close()
+                    upload_database()
 
                     st.cache_data.clear()
 
