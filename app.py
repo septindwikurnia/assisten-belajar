@@ -25,6 +25,62 @@ FILE_ID = "1ho1H35Wj6yezHW4BdG4H_mu24sXrtteU"
 
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 
+# Lokasi sementara database di Streamlit Cloud
+DB_PATH = "/tmp/Database_Assisten_Belajar_Pulih_2.xlsx"
+
+
+@st.cache_resource
+def get_drive_service():
+    credentials_info = dict(st.secrets["gcp_service_account"])
+
+    # Mengantisipasi private key yang tersimpan dengan karakter \n
+    credentials_info["private_key"] = (
+        credentials_info["private_key"].replace("\\n", "\n")
+    )
+
+    credentials = service_account.Credentials.from_service_account_info(
+        credentials_info,
+        scopes=SCOPES
+    )
+
+    return build("drive", "v3", credentials=credentials)
+
+
+# MENGUNDUH DATABASE DARI GOOGLE DRIVE
+def download_database():
+    service = get_drive_service()
+
+    request = service.files().get_media(fileId=FILE_ID)
+
+    with open(DB_PATH, "wb") as file:
+        downloader = MediaIoBaseDownload(file, request)
+        selesai = False
+
+        while not selesai:
+            status, selesai = downloader.next_chunk()
+
+    return DB_PATH
+
+
+# MENYIMPAN PERUBAHAN DATABASE KE GOOGLE DRIVE
+def upload_database():
+    service = get_drive_service()
+
+    with open(DB_PATH, "rb") as file:
+        media = MediaIoBaseUpload(
+            file,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            resumable=True
+        )
+
+        service.files().update(
+            fileId=FILE_ID,
+            media_body=media
+        ).execute()
+
+    # Hapus cache agar data terbaru langsung terbaca
+    load_database.clear()
+
 # AKSES ADMIN
 ADMIN_USERNAME = st.secrets["ADMIN_USERNAME"]
 ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
@@ -537,11 +593,10 @@ button[kind="header"],
 </style>
 """, unsafe_allow_html=True)
 
-# MEMBACA DATABASE EXCEL
+# MEMBACA DATABASE EXCEL DARI GOOGLE DRIVE
 @st.cache_data(ttl=10)
 def load_database():
-    if not os.path.exists(DB_PATH):
-        return {}
+    download_database()
 
     sheets = pd.read_excel(
         DB_PATH,
@@ -551,8 +606,19 @@ def load_database():
 
     return sheets
 
+
 data = load_database()
 
+
+def get_data(sheet):
+    return data.get(sheet, pd.DataFrame())
+
+
+murid = get_data("murid")
+tutor = get_data("tutor")
+paket = get_data("paket")
+absensi = get_data("absensi_murid")
+absensi_tutor = get_data("absensi_tutor")
 def get_data(sheet):
     return data.get(sheet, pd.DataFrame())
 
@@ -1703,6 +1769,7 @@ elif menu == "Pendaftaran":
                 try:
 
                     # Membuka database Excel
+                    download_database()
                     wb = load_workbook(DB_PATH)
                     ws = wb["pendaftaran_murid"]
 
@@ -1866,7 +1933,7 @@ elif menu == "Daftar Murid":
         return hasil.date()
 
     def simpan_murid(perubahan, murid_id=None):
-
+        download_database()
         wb = load_workbook(DB_PATH)
         ws = wb["murid"]
 
@@ -2516,7 +2583,7 @@ elif menu == "Daftar Murid":
                 wb = None
 
                 try:
-
+                    download_database()
                     wb = load_workbook(DB_PATH)
                     ws = wb["murid"]
 
@@ -2767,7 +2834,7 @@ elif menu == "Data Tutor":
         return date.today() if pd.isna(hasil) else hasil.date()
 
     def simpan_tutor(perubahan, tutor_id=None):
-
+        download_database()
         wb = load_workbook(DB_PATH)
         ws = wb["tutor"]
         headers = [cell.value for cell in ws[1]]
@@ -3185,6 +3252,7 @@ elif menu == "Data Tutor":
             ):
 
                 try:
+                    download_database()
                     wb = load_workbook(DB_PATH)
                     ws = wb["tutor"]
                     headers = [cell.value for cell in ws[1]]
@@ -3425,7 +3493,7 @@ elif menu == "Absensi Tutor":
             if tombol_simpan:
 
                 try:
-
+                    download_database()
                     wb = load_workbook(DB_PATH)
 
                     # Buat sheet absensi tutor jika belum ada
@@ -4111,7 +4179,7 @@ elif menu == "Absensi Murid":
                 if tombol_simpan:
 
                     try:
-
+                        download_database()
                         wb = load_workbook(DB_PATH)
 
                         # Buat sheet jika belum tersedia
@@ -4791,6 +4859,7 @@ elif menu == "Verifikasi Pendaftaran":
             wb = None
 
             try:
+                download_database()
                 wb = load_workbook(DB_PATH)
 
                 ws_daftar = wb["pendaftaran_murid"]
@@ -5210,7 +5279,7 @@ elif menu == "Paket Belajar":
                             )
 
                         else:
-
+                            download_database()
                             wb = load_workbook(DB_PATH)
                             ws = wb["paket"]
 
@@ -5462,7 +5531,7 @@ elif menu == "Paket Belajar":
                             )
 
                         else:
-
+                            download_database()
                             wb = load_workbook(DB_PATH)
                             ws = wb["paket"]
 
@@ -5551,7 +5620,7 @@ elif menu == "Paket Belajar":
             ):
 
                 try:
-
+                    download_database()
                     wb = load_workbook(DB_PATH)
                     ws = wb["paket"]
 
