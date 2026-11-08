@@ -48,16 +48,18 @@ def get_drive_service():
 # MEMBUAT KONEKSI GOOGLE DRIVE
 drive_service = get_drive_service()
 
-# CEK IZIN EDIT FILE EXCEL
-info_file = drive_service.files().get(
+# CEK DAFTAR IZIN FILE GOOGLE DRIVE
+izin_file = drive_service.permissions().list(
     fileId=FILE_ID,
-    fields="id,name,mimeType,capabilities(canEdit),driveId",
-    supportsAllDrives=True
+    fields="permissions(id,type,emailAddress,role)"
 ).execute()
 
-st.write("Nama file:", info_file.get("name"))
-st.write("Bisa diedit:", info_file["capabilities"]["canEdit"])
-
+for izin in izin_file.get("permissions", []):
+    st.write({
+        "email": izin.get("emailAddress"),
+        "role": izin.get("role"),
+        "type": izin.get("type")
+    })
 # MENGUNDUH DATABASE DARI GOOGLE DRIVE
 def download_database():
     service = get_drive_service()
