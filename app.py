@@ -2082,7 +2082,7 @@ elif menu == "Daftar Murid":
             # ======================================
             kolom_tampil = [
                 kolom for kolom in [
-                    "nama_panggilan",
+                    "nama",
                     "sekolah",
                     "tanggal_masuk",
                     "status"
