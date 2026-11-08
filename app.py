@@ -21,7 +21,7 @@ st.set_page_config(
 )
 
 # KONFIGURASI DATABASE GOOGLE DRIVE
-FILE_ID = "1ho1H35Wj6yezHW4BdG4H_mu24sXrtteU"
+FILE_ID = "1FKiewGi91GOl5R7rQRB3BjHxHq1D8Bgj"
 
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 
