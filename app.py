@@ -565,7 +565,7 @@ if not st.session_state.admin_login and not st.session_state.tutor_login:
       kiri, tengah, kanan = st.columns([2, 7, 2], vertical_alignment="center")
 
     with kiri:
-        with open("/content/drive/MyDrive/Assisten_Belajar/logo.png", "rb") as f:
+        with open("logo.png", "rb") as f:
             logo_base64 = base64.b64encode(f.read()).decode()
 
         st.markdown(
@@ -1056,7 +1056,7 @@ if menu == "Beranda":
     # POSTER LANDSCAPE FULL WIDTH
     # ======================================
     st.image(
-        "/content/drive/MyDrive/Assisten_Belajar/poster.png",
+        "poster.png",
         use_container_width=True
     )
 
