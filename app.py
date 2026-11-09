@@ -1822,7 +1822,7 @@ elif menu == "Pendaftaran":
                         "pekerjaan_ibu": pekerjaan_ibu.strip(),
                         "no_whatsapp_orang_tua": whatsapp.strip(),
                         "alamat": alamat.strip(),
-                        "kebutuhan_belajar": kebutuhan,
+                        "kebutuhan_belajar": ", ".join(kebutuhan),
                         "paket_id": pilihan_paket,
                         "jadwal_preferensi": jadwal,
                         "catatan_khusus": catatan.strip(),
@@ -2228,16 +2228,22 @@ elif menu == "Daftar Murid":
                     ]
                 )
 
-                kebutuhan = st.selectbox(
-                    "Kebutuhan Belajar *",
-                    [
-                        "Pilih",
-                        "Calistung",
-                        "Semua Mata Pelajaran",
-                        "Matematika",
-                        "Bahasa Inggris"
-                    ]
-                )
+# Checkbox Kebutuhan Belajar (bisa memilih lebih dari satu)
+st.markdown("**Kebutuhan Belajar * (Bisa pilih lebih dari satu)**")
+
+daftar_kebutuhan = [
+    "Calistung",
+    "Semua Mata Pelajaran",
+    "Matematika",
+    "Bahasa Inggris",
+    "TKA"
+]
+
+kebutuhan = []
+
+for pilihan in daftar_kebutuhan:
+    if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
+        kebutuhan.append(pilihan)
 
             st.markdown("---")
             st.markdown("### Pilihan Paket Belajar")
@@ -2359,11 +2365,8 @@ elif menu == "Daftar Murid":
                         "Silakan pilih kelas."
                     )
 
-                elif kebutuhan == "Pilih":
-
-                    st.error(
-                        "Silakan pilih kebutuhan belajar."
-                    )
+                elif not kebutuhan:
+                    st.error("Silakan pilih minimal satu kebutuhan belajar.")
 
                 elif not pilihan_paket:
 
