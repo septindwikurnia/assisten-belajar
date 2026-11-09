@@ -2388,7 +2388,7 @@ elif menu == "Daftar Murid":
                             "sekolah": sekolah.strip(),
                             "kelas": kelas,
                             "kebutuhan_belajar": (
-                                kebutuhan
+                                ", ".join(kebutuhan)
                                 + (
                                     " - " + kebutuhan_catatan.strip()
                                     if kebutuhan_catatan.strip()
@@ -2554,7 +2554,7 @@ elif menu == "Daftar Murid":
                             "gender": gender_edit,
                             "sekolah": sekolah_edit.strip(),
                             "kelas": kelas_edit.strip(),
-                            "kebutuhan_belajar": kebutuhan_edit.strip(),
+                            "kebutuhan_belajar": ", ".join(kebutuhan_edit),
                             "paket_id": paket_edit.strip(),
                             "catatan_khusus": catatan_edit.strip(),
                             "tanggal_masuk": masuk_edit,
