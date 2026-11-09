@@ -2228,22 +2228,22 @@ elif menu == "Daftar Murid":
                     ]
                 )
 
-# Checkbox Kebutuhan Belajar (bisa memilih lebih dari satu)
-st.markdown("**Kebutuhan Belajar * (Bisa pilih lebih dari satu)**")
-
-daftar_kebutuhan = [
-    "Calistung",
-    "Semua Mata Pelajaran",
-    "Matematika",
-    "Bahasa Inggris",
-    "TKA"
-]
-
-kebutuhan = []
-
-for pilihan in daftar_kebutuhan:
-    if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
-        kebutuhan.append(pilihan)
+            # Checkbox Kebutuhan Belajar (bisa memilih lebih dari satu)
+            st.markdown("**Kebutuhan Belajar * (Bisa pilih lebih dari satu)**")
+            
+            daftar_kebutuhan = [
+                "Calistung",
+                "Semua Mata Pelajaran",
+                "Matematika",
+                "Bahasa Inggris",
+                "TKA"
+            ]
+            
+            kebutuhan = []
+            
+            for pilihan in daftar_kebutuhan:
+                if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
+                    kebutuhan.append(pilihan)
 
             st.markdown("---")
             st.markdown("### Pilihan Paket Belajar")
