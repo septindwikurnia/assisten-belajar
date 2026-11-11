@@ -2207,7 +2207,7 @@ elif menu == "Daftar Murid":
                     "Tanggal Lahir",
                     value=None,
                     min_value=date(1945, 1, 1),
-                    max_value=date.today(),
+                    max_value=None,
                     key="tambah_lahir_murid"
                 )
 
