@@ -2654,6 +2654,8 @@ elif menu == "Daftar Murid":
         else:
 
             st.info("Belum ada data murid.")
+            
+
 # ======================================
 # PENDAFTARAN TUTOR (ADMIN)
 # ======================================
@@ -2661,10 +2663,12 @@ elif menu == "Pendaftaran Tutor":
 
     from datetime import date
 
+    # CEK LOGIN ADMIN
     if not st.session_state.admin_login:
         st.session_state.menu_aktif = "Beranda"
         st.rerun()
 
+    # TOMBOL KEMBALI KE DASHBOARD ADMIN
     if st.button(
         "← Kembali",
         key="kembali_pendaftaran_tutor"
@@ -2672,6 +2676,7 @@ elif menu == "Pendaftaran Tutor":
         st.session_state.menu_aktif = "Dashboard"
         st.rerun()
 
+    # JUDUL HALAMAN
     st.markdown(
         '<div class="main-title">Pendaftaran Tutor</div>',
         unsafe_allow_html=True
@@ -2684,7 +2689,9 @@ elif menu == "Pendaftaran Tutor":
         unsafe_allow_html=True
     )
 
+    # ======================================
     # FORM PENDAFTARAN TUTOR
+    # ======================================
     with st.form("form_pendaftaran_tutor"):
 
         st.subheader("Formulir Data Calon Tutor")
@@ -2695,6 +2702,7 @@ elif menu == "Pendaftaran Tutor":
             nama = st.text_input("Nama Lengkap *")
             panggilan = st.text_input("Nama Panggilan")
             tempat = st.text_input("Tempat Lahir")
+
             lahir = st.date_input(
                 "Tanggal Lahir",
                 value=None,
@@ -2705,10 +2713,16 @@ elif menu == "Pendaftaran Tutor":
 
         with col2:
             pendidikan = st.text_input("Pendidikan Terakhir")
-            whatsapp = st.text_input("Nomor WhatsApp *")
+            whatsapp = st.text_input(
+                "Nomor WhatsApp *",
+                placeholder="081234567890"
+            )
 
         alamat = st.text_area("Alamat")
 
+        # ======================================
+        # AKUN LOGIN TUTOR
+        # ======================================
         st.markdown("### Akun Login Tutor")
 
         col3, col4 = st.columns(2)
@@ -2717,8 +2731,14 @@ elif menu == "Pendaftaran Tutor":
             username = st.text_input("Username Login *")
 
         with col4:
-            password = st.text_input("Password Login *")
+            password = st.text_input(
+                "Password Login *",
+                type="password"
+            )
 
+        # ======================================
+        # MASA KERJA
+        # ======================================
         st.markdown("### Masa Kerja")
 
         tanggal_masuk = st.date_input(
@@ -2731,11 +2751,17 @@ elif menu == "Pendaftaran Tutor":
             value=None
         )
 
+        # ======================================
+        # TOMBOL DAFTARKAN TUTOR
+        # ======================================
         simpan = st.form_submit_button(
             "Daftarkan Tutor",
             use_container_width=True
         )
 
+        # ======================================
+        # VALIDASI DAN SIMPAN DATA
+        # ======================================
         if simpan:
 
             if not nama.strip():
@@ -2754,7 +2780,9 @@ elif menu == "Pendaftaran Tutor":
                 tanggal_keluar is not None
                 and tanggal_keluar < tanggal_masuk
             ):
-                st.error("Tanggal keluar tidak boleh sebelum tanggal masuk.")
+                st.error(
+                    "Tanggal keluar tidak boleh sebelum tanggal masuk."
+                )
 
             else:
                 try:
@@ -2772,13 +2800,18 @@ elif menu == "Pendaftaran Tutor":
                         "tanggal_selesai": tanggal_keluar or ""
                     })
 
-                    st.success("Pendaftaran tutor berhasil disimpan.")
+                    st.success(
+                        "Pendaftaran tutor berhasil disimpan."
+                    )
+
                     st.cache_data.clear()
                     st.rerun()
 
                 except Exception as e:
-                    st.error(f"Gagal menyimpan pendaftaran: {e}")
-
+                    st.error(
+                        f"Gagal menyimpan pendaftaran: {e}"
+                    )
+                    
 # CRUD DATA TUTOR (ADMIN)
 elif menu == "Data Tutor":
 
