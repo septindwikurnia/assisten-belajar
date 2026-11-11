@@ -1863,7 +1863,7 @@ for pilihan in daftar_kebutuhan:
 
 
     # DAFTAR MURID (ADMIN)
-    elif menu == "Daftar Murid":
+elif menu == "Daftar Murid":
 
     from openpyxl import load_workbook
     from datetime import date
