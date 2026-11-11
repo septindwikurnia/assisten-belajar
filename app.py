@@ -1605,8 +1605,8 @@ elif menu == "Pendaftaran":
             tempat_lahir = st.text_input("Tempat Lahir")
             tanggal_lahir = st.date_input(
                 "Tanggal Lahir",
-                value=None,
-                min_value=None
+                min_value=date(1945, 1, 1),
+                max_value=date.today()
             )
             gender = st.selectbox(
                 "Jenis Kelamin *",
@@ -2209,6 +2209,8 @@ elif menu == "Daftar Murid":
                 lahir = st.date_input(
                     "Tanggal Lahir",
                     value=None,
+                    min_value=date(1945, 1, 1),
+                    max_value=date.today(),
                     key="tambah_lahir_murid"
                 )
 
@@ -2699,8 +2701,8 @@ elif menu == "Pendaftaran Tutor":
             lahir = st.date_input(
                 "Tanggal Lahir",
                 value=None,
-                min_value=None,
-                max_value=None
+                min_value=date(1945, 1, 1),
+                max_value=date.today()
             )
 
         with col2:
@@ -3013,7 +3015,9 @@ elif menu == "Data Tutor":
                 tempat = st.text_input("Tempat Lahir")
                 lahir = st.date_input(
                     "Tanggal Lahir",
-                    value=None
+                    value=None,
+                    min_value=date(1945, 1, 1),
+                    max_value=date.today()
                 )
 
             with col2:
