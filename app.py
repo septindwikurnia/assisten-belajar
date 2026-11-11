@@ -1606,8 +1606,7 @@ elif menu == "Pendaftaran":
             tanggal_lahir = st.date_input(
                 "Tanggal Lahir",
                 value=None,
-                min_value=None,
-                max_value=None
+                min_value=None
             )
             gender = st.selectbox(
                 "Jenis Kelamin *",
@@ -2699,7 +2698,9 @@ elif menu == "Pendaftaran Tutor":
             tempat = st.text_input("Tempat Lahir")
             lahir = st.date_input(
                 "Tanggal Lahir",
-                value=None
+                value=None,
+                min_value=None,
+                max_value=None
             )
 
         with col2:
