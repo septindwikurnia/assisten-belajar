@@ -1607,7 +1607,7 @@ elif menu == "Pendaftaran":
                 "Tanggal Lahir",
                 value=None,
                 min_value=None,
-                max_value-None,
+                max_value-None
             )
             gender = st.selectbox(
                 "Jenis Kelamin *",
