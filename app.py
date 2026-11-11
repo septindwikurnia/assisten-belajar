@@ -83,6 +83,72 @@ def upload_database():
     # Hapus cache agar data terbaru langsung terbaca
     load_database.clear()
 
+
+# FUNGSI MENYIMPAN DAN MEMPERBARUI DATA TUTOR
+def simpan_tutor(perubahan, tutor_id=None):
+    download_database()
+    wb = load_workbook(DB_PATH)
+    ws = wb["tutor"]
+    headers = [cell.value for cell in ws[1]]
+
+    posisi = {
+        nama: index + 1
+        for index, nama in enumerate(headers)
+    }
+
+    if tutor_id is None:
+
+        nomor_terbesar = 0
+
+        for baris in range(2, ws.max_row + 1):
+            nilai = ws.cell(
+                baris, posisi["tutor_id"]
+            ).value
+
+            if nilai and str(nilai).startswith("TTR"):
+                try:
+                    nomor_terbesar = max(
+                        nomor_terbesar,
+                        int(str(nilai)[3:])
+                    )
+                except ValueError:
+                    pass
+
+        tutor_id = f"TTR{nomor_terbesar + 1:04d}"
+        perubahan["tutor_id"] = tutor_id
+
+        ws.append([
+            perubahan.get(kolom, "")
+            for kolom in headers
+        ])
+
+    else:
+
+        ditemukan = False
+
+        for baris in range(2, ws.max_row + 1):
+
+            if str(
+                ws.cell(baris, posisi["tutor_id"]).value
+            ) == str(tutor_id):
+
+                for kolom, nilai in perubahan.items():
+                    if kolom in posisi:
+                        ws.cell(
+                            baris, posisi[kolom]
+                        ).value = nilai
+
+                ditemukan = True
+                break
+
+        if not ditemukan:
+            wb.close()
+            raise ValueError("Data tutor tidak ditemukan.")
+
+    wb.save(DB_PATH)
+    wb.close()
+    upload_database()
+
 # AKSES ADMIN
 ADMIN_USERNAME = st.secrets["ADMIN_USERNAME"]
 ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
@@ -2882,69 +2948,6 @@ elif menu == "Data Tutor":
         hasil = pd.to_datetime(nilai, errors="coerce")
         return date.today() if pd.isna(hasil) else hasil.date()
 
-    def simpan_tutor(perubahan, tutor_id=None):
-        download_database()
-        wb = load_workbook(DB_PATH)
-        ws = wb["tutor"]
-        headers = [cell.value for cell in ws[1]]
-
-        posisi = {
-            nama: index + 1
-            for index, nama in enumerate(headers)
-        }
-
-        if tutor_id is None:
-
-            nomor_terbesar = 0
-
-            for baris in range(2, ws.max_row + 1):
-                nilai = ws.cell(
-                    baris, posisi["tutor_id"]
-                ).value
-
-                if nilai and str(nilai).startswith("TTR"):
-                    try:
-                        nomor_terbesar = max(
-                            nomor_terbesar,
-                            int(str(nilai)[3:])
-                        )
-                    except ValueError:
-                        pass
-
-            tutor_id = f"TTR{nomor_terbesar + 1:04d}"
-            perubahan["tutor_id"] = tutor_id
-
-            ws.append([
-                perubahan.get(kolom, "")
-                for kolom in headers
-            ])
-
-        else:
-
-            ditemukan = False
-
-            for baris in range(2, ws.max_row + 1):
-
-                if str(
-                    ws.cell(baris, posisi["tutor_id"]).value
-                ) == str(tutor_id):
-
-                    for kolom, nilai in perubahan.items():
-                        if kolom in posisi:
-                            ws.cell(
-                                baris, posisi[kolom]
-                            ).value = nilai
-
-                    ditemukan = True
-                    break
-
-            if not ditemukan:
-                wb.close()
-                raise ValueError("Data tutor tidak ditemukan.")
-
-        wb.save(DB_PATH)
-        wb.close()
-        upload_database()
         st.cache_data.clear()
 
     tab1, tab2, tab3 = st.tabs([
