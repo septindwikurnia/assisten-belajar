@@ -1602,7 +1602,7 @@ elif menu == "Pendaftaran":
             tempat_lahir = st.text_input("Tempat Lahir")
             tanggal_lahir = st.date_input(
                 "Tanggal Lahir",
-                min_value=date(1945, 1, 1),
+                min_value=None,
                 max_value=None,
             )
             gender = st.selectbox(
@@ -2206,7 +2206,7 @@ elif menu == "Daftar Murid":
                 lahir = st.date_input(
                     "Tanggal Lahir",
                     value=None,
-                    min_value=date(1945, 1, 1),
+                    min_value=None,
                     max_value=None,
                     key="tambah_lahir_murid"
                 )
