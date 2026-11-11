@@ -3152,11 +3152,10 @@ elif menu == "Data Tutor":
                     )
 
                     lahir_lama = item.get("tanggal_lahir")
-                    lahir_edit = st.date_input(
-                        "Tanggal Lahir",
-                        value=tanggal_tutor(lahir_lama),
-                        key="edit_lahir_tutor"
-                    )
+                    value=tanggal_tutor(lahir_lama),
+                    min_value=date(1945, 1, 1),
+                    max_value=date.today(),
+                    key="edit_lahir_tutor"
 
                 with col2:
                     pendidikan_edit = st.text_input(
