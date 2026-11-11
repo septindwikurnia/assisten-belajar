@@ -1627,17 +1627,22 @@ elif menu == "Pendaftaran":
                 ]
             )
 
-            kebutuhan = st.selectbox(
-                "Kebutuhan Belajar *",
-                [
-                    "Pilih",
-                    "Calistung",
-                    "Semua Mata Pelajaran",
-                    "Matematika",
-                    "Bahasa Inggris",
-                    "TKA"
-                ]
-            )
+            # Checkbox Kebutuhan Belajar (bisa memilih lebih dari satu)
+            st.markdown("**Kebutuhan Belajar * (Bisa pilih lebih dari satu)**")
+            
+            daftar_kebutuhan = [
+                "Calistung",
+                "Semua Mata Pelajaran",
+                "Matematika",
+                "Bahasa Inggris",
+                "TKA"
+            ]
+            
+            kebutuhan = []
+
+for pilihan in daftar_kebutuhan:
+    if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
+        kebutuhan.append(pilihan)
 
         st.markdown("---")
         st.markdown("### Identitas Orang Tua")
