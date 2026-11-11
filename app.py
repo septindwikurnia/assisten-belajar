@@ -1565,9 +1565,6 @@ elif menu == "Dashboard":
 # PENDAFTARAN MURID ONLINE
 elif menu == "Pendaftaran":
 
-    from openpyxl import load_workbook
-    from datetime import datetime
-
     # TOMBOL KEMBALI
     if st.button("← Kembali", key="kembali_pendaftaran"):
 
@@ -3784,7 +3781,6 @@ elif menu == "Absensi Tutor":
             # ======================================
             # KONVERSI TANGGAL DAN STATUS
             # ======================================
-            from datetime import datetime
 
             riwayat["tanggal"] = pd.to_datetime(
                 riwayat["tanggal"],
@@ -4412,8 +4408,6 @@ elif menu == "Absensi Murid":
             # ======================================
             # KONVERSI TANGGAL DAN STATUS
             # ======================================
-            from datetime import datetime
-
             riwayat["tanggal"] = pd.to_datetime(
                 riwayat["tanggal"],
                 errors="coerce"
