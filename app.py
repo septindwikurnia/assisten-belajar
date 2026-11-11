@@ -1640,9 +1640,9 @@ elif menu == "Pendaftaran":
             
             kebutuhan = []
 
-for pilihan in daftar_kebutuhan:
-    if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
-        kebutuhan.append(pilihan)
+            for pilihan in daftar_kebutuhan:
+                if st.checkbox(pilihan, key=f"kebutuhan_{pilihan}"):
+                    kebutuhan.append(pilihan)
 
         st.markdown("---")
         st.markdown("### Identitas Orang Tua")
