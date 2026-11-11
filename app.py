@@ -2699,7 +2699,8 @@ elif menu == "Pendaftaran Tutor":
                 "Tanggal Lahir",
                 value=None,
                 min_value=date(1945, 1, 1),
-                max_value=date.today()
+                max_value=date.today(),
+                key="tanggal_lahir_tutor"
             )
 
         with col2:
