@@ -1634,7 +1634,8 @@ elif menu == "Pendaftaran":
                     "Calistung",
                     "Semua Mata Pelajaran",
                     "Matematika",
-                    "Bahasa Inggris"
+                    "Bahasa Inggris",
+                    "TKA"
                 ]
             )
 
